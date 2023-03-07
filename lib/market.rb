@@ -64,6 +64,15 @@ class Market
     if total_inventory[item][:quantity] < quantity
       return false
     elsif total_inventory[item][:quantity] >= quantity
+      fulfilled = 0
+      until fulfilled == quantity
+        vendors_that_sell(item).each do |vendor|
+          while vendor.inventory[item] > 0 && fulfilled < quantity
+            vendor.inventory[item] -= 1
+            fulfilled += 1
+          end
+        end
+      end
       return true
     end
   end
