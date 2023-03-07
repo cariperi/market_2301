@@ -84,4 +84,20 @@ describe Market do
       expect(@market.sorted_item_list).to eq(["Banana Nice Cream", 'Peach', "Peach-Raspberry Nice Cream", 'Tomato'])
     end
   end
+
+  describe '#total_inventory' do
+    it 'returns an inventory for the market as a hash' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expect(@market.total_inventory).to be_a Hash
+      expect(@market.total_inventory.keys).to eq([@item1, @item2, @item3, @item4])
+      expect(@market.total_inventory[@item1]).to be_a Hash
+      expect(@market.total_inventory[@item1][:quantity]).to be_a Integer
+      expect(@market.total_inventory[@item1][:quantity]).to eq(100)
+      expect(@market.total_inventory[@item1][:vendors]).to be_a Array
+      expect(@market.total_inventory[@item1][:vendors]).to eq([@vendor1, @vendor3])
+    end
+  end
 end
