@@ -190,5 +190,18 @@ describe Market do
 
       expect(@market.total_inventory[@item3][:quantity]).to eq(20)
     end
+
+    it 'can reduce the amount of stock of an item across multiple vendors' do
+      @vendor1.stock(@item5, 2)
+      @vendor2.stock(@item5, 10)
+
+      expect(@market.total_inventory[@item5][:quantity]).to eq(12)
+
+      @market.sell(@item5, 4)
+
+      expect(@market.total_inventory[@item5][:quantity]).to eq(8)
+      expect(@vendor1.inventory[@item5]).to eq(0)
+      expect(@vendor2.inventory[@item5]).to eq(8)
+    end
   end
 end
