@@ -100,6 +100,8 @@ describe Market do
       expect(@market.total_inventory[@item1][:vendors]).to be_a Array
       expect(@market.total_inventory[@item1][:vendors]).to eq([@vendor1, @vendor3])
       expect(@market.total_inventory[@item2]).to eq({:quantity => 7, :vendors => [@vendor1]})
+      expect(@market.total_inventory[@item3]).to eq({:quantity => 25, :vendors => [@vendor2]})
+      expect(@market.total_inventory[@item4]).to eq({:quantity => 50, :vendors => [@vendor2]})
     end
   end
 

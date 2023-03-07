@@ -35,7 +35,7 @@ class Market
       vendor.inventory.each do |item, amount|
         total_inventory[item] = {:quantity => 0, :vendors => []} if !total_inventory.keys.include?(item)
         total_inventory[item][:quantity] += amount
-        total_inventory[item][:vendors] << vendor
+        total_inventory[item][:vendors] = vendors_that_sell(item)
       end
     end
     total_inventory
