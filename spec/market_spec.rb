@@ -102,4 +102,16 @@ describe Market do
       expect(@market.total_inventory[@item2]).to eq({:quantity => 7, :vendors => [@vendor1]})
     end
   end
+
+  describe '#overstocked_items' do
+    it 'lists items sold by more than 1 vendor with total stock over 50' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expect(@market.overstocked_items).to be_a Array
+      expect(@market.overstocked_items).to eq([@item1])
+      expect(@market.overstocked_items).to_not include(@item2, @item3, @item4)
+    end
+  end
 end
