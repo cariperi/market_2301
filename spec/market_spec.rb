@@ -92,12 +92,14 @@ describe Market do
       @market.add_vendor(@vendor3)
 
       expect(@market.total_inventory).to be_a Hash
-      expect(@market.total_inventory.keys).to eq([@item1, @item2, @item3, @item4])
+      expect(@market.total_inventory.keys).to include(@item1, @item2, @item3, @item4)
+      expect(@market.total_inventory.keys.count).to eq(4)
       expect(@market.total_inventory[@item1]).to be_a Hash
       expect(@market.total_inventory[@item1][:quantity]).to be_a Integer
       expect(@market.total_inventory[@item1][:quantity]).to eq(100)
       expect(@market.total_inventory[@item1][:vendors]).to be_a Array
       expect(@market.total_inventory[@item1][:vendors]).to eq([@vendor1, @vendor3])
+      expect(@market.total_inventory[@item2]).to eq({:quantity => 7, :vendors => [@vendor1]})
     end
   end
 end
