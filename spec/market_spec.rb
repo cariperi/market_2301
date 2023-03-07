@@ -133,6 +133,12 @@ describe Market do
   end
 
   describe '#multiple_vendors?' do
+    before(:each) do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+    end
+
     it 'returns true if an item is sold by more than 1 vendor' do
       expect(@market.multiple_vendors?(@item1)).to be true
     end
