@@ -71,4 +71,17 @@ describe Market do
       expect(@market.vendors_that_sell(@item1).sample).to be_a Vendor
     end
   end
+
+  describe '#sorted_item_list' do
+    it 'returns a sorted list of in-stock item names from all vendors' do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+
+      expect(@market.sorted_item_list.count).to eq(4)
+      expect(@market.sorted_item_list).to be_a Array
+      expect(@market.sorted_item_list.sample).to be_a String
+      expect(@market.sorted_item_list).to eq(["Banana Nice Cream", 'Peach', "Peach-Raspberry Nice Cream", 'Tomato'])
+    end
+  end
 end
