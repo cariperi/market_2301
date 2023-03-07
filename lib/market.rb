@@ -29,4 +29,16 @@ class Market
     end
     items.sort
   end
+
+  def total_inventory
+    total_inventory = {}
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, amount|
+        total_inventory[item] = {:quantity => 0, :vendors => []} if !total_inventory.keys.include?(item)
+        total_inventory[item][:quantity] += amount
+        total_inventory[item][:vendors] << vendor
+      end
+    end
+    total_inventory
+  end
 end
