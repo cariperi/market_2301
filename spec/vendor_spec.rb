@@ -21,4 +21,11 @@ describe Vendor do
       expect(@vendor.inventory).to be_a Hash
     end
   end
+
+  describe '#check_stock' do
+    it 'returns zero if the item is not in stock' do
+      expect(@vendor.inventory).to eq({})
+      expect(@vendor.check_stock(@item1)).to eq(0)
+    end
+  end
 end
