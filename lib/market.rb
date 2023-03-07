@@ -44,10 +44,15 @@ class Market
   def overstocked_items
     overstocked_items = []
     total_inventory.each do |item, details|
-      if details[:quantity] > 50 && details[:vendors].count > 1
+      if details[:quantity] > 50 && multiple_vendors?(item)
         overstocked_items << item
       end
     end
     overstocked_items
+  end
+
+  def multiple_vendors?(item)
+    return false if vendors_that_sell(item).empty?
+    total_inventory[item][:vendors].count > 1
   end
 end
