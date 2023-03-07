@@ -180,7 +180,15 @@ describe Market do
 
     it 'returns true if the market can fulfill the order' do
       expect(@market.total_inventory[@item3][:quantity]).to eq(25)
-      expect(@market.sell(@item2, 5)).to be true
+      expect(@market.sell(@item3, 5)).to be true
+    end
+
+    it 'can reduce the amount of stock of the item by the given quantity' do
+      expect(@market.total_inventory[@item3][:quantity]).to eq(25)
+
+      @market.sell(@item3, 5)
+
+      expect(@market.total_inventory[@item3][:quantity]).to eq(20)
     end
   end
 end
