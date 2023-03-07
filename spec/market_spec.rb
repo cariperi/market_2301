@@ -148,4 +148,21 @@ describe Market do
       expect(@market.multiple_vendors?(@item5)).to be false
     end
   end
+
+  describe '#high_quantity?' do
+    before(:each) do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+    end
+
+    it 'returns true if an items stock count is more than 50' do
+      expect(@market.high_quantity?(@item1)).to be true
+    end
+
+    it 'returns false if an items stock count is less than or equal to 50' do
+      expect(@market.high_quantity?(@item2)).to be false
+      expect(@market.high_quantity?(@item4)).to be false
+    end
+  end
 end
