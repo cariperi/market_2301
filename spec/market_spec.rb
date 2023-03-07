@@ -122,5 +122,11 @@ describe Market do
 
       expect(@market.overstocked_items).to_not include(item5)
     end
+
+    it 'does not list items sold by more than 1 vendor if stock is less than 50' do
+      @vendor3.stock(@item2, 13)
+
+      expect(@market.overstocked_items).to_not include(@item2)
+    end
   end
 end
