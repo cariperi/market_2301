@@ -59,4 +59,12 @@ class Market
   def high_quantity?(item)
     total_inventory[item][:quantity] > 50
   end
+
+  def sell(item, quantity)
+    if total_inventory[item][:quantity] < quantity
+      return false
+    elsif total_inventory[item][:quantity] >= quantity
+      return true
+    end
+  end
 end
