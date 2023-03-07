@@ -32,6 +32,12 @@ describe Market do
       expect(@market.vendors).to eq([])
       expect(@market.vendors).to be_a Array
     end
+
+    it 'has a creation date' do
+      date = @market.date
+      expect(date).to be_a Date
+      expect(date.to_s).to eq("2023-03-07")
+    end
   end
 
   describe '#add_vendor' do
