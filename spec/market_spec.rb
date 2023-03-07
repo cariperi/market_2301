@@ -165,4 +165,22 @@ describe Market do
       expect(@market.high_quantity?(@item4)).to be false
     end
   end
+
+  describe '#sell' do
+    before(:each) do
+      @market.add_vendor(@vendor1)
+      @market.add_vendor(@vendor2)
+      @market.add_vendor(@vendor3)
+    end
+
+    it 'returns false if the market cannot fulfill the order' do
+      expect(@market.total_inventory[@item2][:quantity]).to eq(7)
+      expect(@market.sell(@item2, 10)).to be false
+    end
+
+    it 'returns true if the market can fulfill the order' do
+      expect(@market.total_inventory[@item3][:quantity]).to eq(25)
+      expect(@market.sell(@item2, 5)).to be true
+    end
+  end
 end
