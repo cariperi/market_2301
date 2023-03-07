@@ -104,14 +104,23 @@ describe Market do
   end
 
   describe '#overstocked_items' do
-    it 'lists items sold by more than 1 vendor with total stock over 50' do
+    before(:each) do
       @market.add_vendor(@vendor1)
       @market.add_vendor(@vendor2)
       @market.add_vendor(@vendor3)
+    end
 
+    it 'lists items sold by more than 1 vendor with total stock over 50' do
       expect(@market.overstocked_items).to be_a Array
       expect(@market.overstocked_items).to eq([@item1])
       expect(@market.overstocked_items).to_not include(@item2, @item3, @item4)
+    end
+
+    it 'does not list items with stock over 50 that are only sold by 1 vendor' do
+      item5 = Item.new({name: "Butternut Squash", price: "$1.50"})
+      @vendor1.stock(item5, 100)
+
+      expect(@market.overstocked_items).to_not include(item5)
     end
   end
 end
