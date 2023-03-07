@@ -10,6 +10,7 @@ describe Market do
     @item2 = Item.new({name: 'Tomato', price: "$0.50"})
     @item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
     @item4 = Item.new({name: "Banana Nice Cream", price: "$4.25"})
+    @item5 = Item.new({name: "Butternut Squash", price: "$1.50"})
 
     @vendor1.stock(@item1, 35)
     @vendor1.stock(@item2, 7)
@@ -119,16 +120,26 @@ describe Market do
     end
 
     it 'does not list items with stock over 50 that are only sold by 1 vendor' do
-      item5 = Item.new({name: "Butternut Squash", price: "$1.50"})
-      @vendor1.stock(item5, 100)
+      @vendor1.stock(@item5, 100)
 
-      expect(@market.overstocked_items).to_not include(item5)
+      expect(@market.overstocked_items).to_not include(@item5)
     end
 
     it 'does not list items sold by more than 1 vendor if stock is less than 50' do
       @vendor3.stock(@item2, 13)
 
       expect(@market.overstocked_items).to_not include(@item2)
+    end
+  end
+
+  describe '#multiple_vendors?' do
+    it 'returns true if an item is sold by more than 1 vendor' do
+      expect(@market.multiple_vendors?(@item1)).to be true
+    end
+
+    it 'returns false if an item is sold by only 1 vendor or is not stocked' do
+      expect(@market.multiple_vendors?(@item2)).to be false
+      expect(@market.multiple_vendors?(@item5)).to be false
     end
   end
 end
